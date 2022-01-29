@@ -3,6 +3,7 @@
 #include <string>
 #include <fstream>
 #include <cstdlib>
+#include <sstream>
 using namespace std;
 
 
@@ -28,17 +29,42 @@ void CheckDay() {
     }
 }
 
-void CheckHour() {
-    int hour_tracker, minute_tracker;
-    cout<<"Podaj godzine na ktora chcesz swoje zamowienie (podaj najpierw godzine a pozniej minuty)"<<endl;
-    cin>>hour_tracker;
-    cin>>minute_tracker;
+int CheckHour(int hour_tracker, int minute_tracker) {
     while (hour_tracker<10 || hour_tracker>=18 || minute_tracker<0 || minute_tracker >= 60){
         cout<<"Wpisales niepoprawna godzine, wpisz ja ponownie!"<<endl;
         cin>>hour_tracker;
         cin>>minute_tracker;
     }
     cout<<"Zamowiles jedzenie na godzine: "<<hour_tracker<<":"<<minute_tracker<<endl;
+    return hour_tracker, minute_tracker;
+}
+
+void OrderHour(){
+    int hours, minutes;
+    cout<<"Podaj godzine na ktora chcesz swoje zamowienie (podaj najpierw godzine a pozniej minuty)"<<endl;
+    cin>>hours;
+    cin>>minutes;
+    CheckHour(hours, minutes);
+}
+
+void CheckAddress(){
+    string town, street;
+    int house_number, apartment_number;
+    cout<<"Podaj miasto w ktorym mieszkasz: "<<endl;
+    cin>>town;
+    if (town == "Poznan" || town == "poznan"){
+        cout<<"Podaj ulice"<<endl;
+        cin>>street;
+        cout<<"Podaj numer bloku"<<endl;
+        cin>>house_number;
+        cout<<"Podaj numer mieszkania"<<endl;
+        cin>>apartment_number;
+    }
+    else{
+        cout<<"Przykro nam, ale nie dowozimy zamowien poza Poznan"<<endl;
+        exit(0);
+    }
+    cout<<"Zamowienie trafi pod adres: "<<street<<" "<<house_number<<" / "<<apartment_number<<" "<<town<<endl;
 }
 
 void InfoForOrder() {
@@ -69,7 +95,7 @@ int main() {
     if(choose_order_form == 1){
         CheckDay();
         InfoForOrder();
-        CheckHour();
+        OrderHour();
 
         cout<<"Oto nasze menu"<<endl;
         //wyswietlenie menu
@@ -77,85 +103,51 @@ int main() {
         cout<<"Jesli chcesz wyjsc z aplikacji wcisnij q"<<endl;
         //idk
 
-        cout<<"Czy masz ochote na przystawke?"<<endl;
-        // if tak wybor przystawek, if nie przejscie do dan glownych (razem z iloscia porcji)
-        // po kazdym wyborze aktualizacja ceny
-
-        cout<<"Czy chcesz cos do picia?"<<endl;
-        //wybor picia
-
+        
+        //wyswietlenie zmowienia
         cout<<"Za wszystko zaplacisz: x"<<endl;
 
-
-
-
-
         cout<<"Jesli chcesz cos usnuac wcisnij r"<<endl;
+
         cout<<"Czy potwierdzasz swoje zamowienie??"<<endl;
         //wyswietl calosc zamowienia i cene i zapisz w pliku txt
 
-        cout<<"Czas przygotowania twojego zamowienia wynmosi: "<<endl;
-
+        
         cout<<"Zyczymy smacznego!"<<endl;
         //zamkniecie aplikacji po x sekundach
     }
 
 
 
-    // else if(choose_order_form == 2){
-    //     cout<<"Podaj imie, adres oraz godzine z zakresu"<<endl;
-    //     cin>>username;
-    //     cin>>address;
-    //     cin>>order_hour;
-    //     while (username.length()<3 || username.length()>20)
-    //     {
-    //         cout<<"Wpisz poprawne imie"<<endl;
-    //         cin>>username;
-    //     }
-
-    //     while (address.length()<6)
-    //     {
-    //         cout<<"Twoj adres jest za krotki, podaj nam wszystkie informacje"<<endl;
-    //         cin>>address;
-    //     }
-
-    //     while (order_hour<10 || order_hour>18)
-    //     {
-    //         cout<<"Wybierz poprawna godzine zamowienia"<<endl;
-    //         cin>>order_hour;
-    //     }
-    //     cout<<"Oto nasze menu"<<endl;
-    //     //wyswitlenie menu
-
-    //     cout<<"Jesli chcesz wyjsc z aplikacji wcisnij q"<<endl;
-
-    //     cout<<"Czy masz ochote na przystawke?"<<endl;
-    //     // if tak wybor przystawek, if nie przejscie do dan glownych (razem z iloscia porcji)
-    //     // po kazdym wyborze aktualizacja ceny
-
-    //     cout<<"Czy chcesz cos do picia?"<<endl;
-    //     //wybor picia
-
-    //     cout<<"Za wszystko zaplacisz: x"<<endl;
+    else if(choose_order_form == 2){
+        CheckDay();
+        InfoForOrder();
+        OrderHour();
+        CheckAddress();
 
 
+        cout<<"Oto nasze menu"<<endl;
+        //wyswitlenie menu
+
+        cout<<"Jesli chcesz wyjsc z aplikacji wcisnij q"<<endl;
 
 
+        cout<<"Za wszystko zaplacisz: x"<<endl;
 
-    //     cout<<"Jesli chcesz cos usnuac wcisnij r"<<endl;
-    //     cout<<"Czy potwierdzasz swoje zamowienie??"<<endl;
-    //     //wyswietl calosc zamowienia i cene i zapisz w pliku txt
+        cout<<"Jesli chcesz cos usnuac wcisnij r"<<endl;
+        cout<<"Czy potwierdzasz swoje zamowienie??"<<endl;
+        //wyswietl calosc zamowienia i cene i zapisz w pliku txt
 
-    //     cout<<"Czas przygotowania twojego zamowienia plus dostawy wynosi: "<<endl;
+        cout<<"Czas przygotowania twojego zamowienia plus dostawy wynosi: "<<endl;
 
-    //     cout<<"Zyczymy smacznego!"<<endl;
-    //     //zamkniecie aplikacji po x sekundach
+        cout<<"Zyczymy smacznego!"<<endl;
+        //zamkniecie aplikacji po x sekundach
 
 
-    // }
-    // else{
-    //         cout<<"Prosze wybrac poprawna opcje!"<<endl;
+    }
+    else{
+            cout<<"Prosze wybrac poprawna opcje!"<<endl;
 
-        // }
+        }
     return 0;
 }
